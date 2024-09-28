@@ -2,16 +2,17 @@ import { AzureFunction, Context } from "@azure/functions"
 
 const timerTrigger: AzureFunction = async function (context: Context, myTimer: any): Promise<void> {
     context.log('Timer trigger function started!');
-    context.log('Memory usage before loop:', memoryCheck(context));
+    context.log('Memory usage before loop:', memoryCheck());
 
     const result = consume5MB();
+    context.log(result.length);
 
     context.log('Timer trigger function completed!');
-    context.log('Memory usage after loop:', memoryCheck(context));
+    context.log('Memory usage after loop:', memoryCheck());
 };
 
 function consume5MB(): string {
-    const targetSize = 5 * 1024 * 1024 / 2; // 5MB in characters
+    const targetSize = 10 * 1024 * 1024 / 2; // 10MB in characters
 
     let largeString = '';
     for (let i = 0; i < targetSize; i++) {
@@ -21,7 +22,7 @@ function consume5MB(): string {
     return largeString;
 }
 
-function memoryCheck(context: Context): string {
+function memoryCheck(): string {
     const heap = process.memoryUsage();
     const msg = [];
     for (const key in heap) {
