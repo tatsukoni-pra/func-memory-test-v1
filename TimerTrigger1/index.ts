@@ -14,13 +14,13 @@ const timerTrigger: AzureFunction = async function (context: Context, myTimer: a
     context.log('Memory usage after loop:', memoryCheck(context));
 };
 
-function memoryCheck(context: Context) {
+function memoryCheck(context: Context): string {
     const heap = process.memoryUsage();
     const msg = [];
     for (const key in heap) {
         msg.push(`${key}: ${Math.round(heap[key] / 1024 / 1024)} MB`);
     }
-    context.log(msg.join(', '));
+    return msg.join(', ');
 }
 
 export default timerTrigger;
