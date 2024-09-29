@@ -1,14 +1,12 @@
 import { AzureFunction, Context } from "@azure/functions"
 
 const timerTrigger: AzureFunction = async function (context: Context, myTimer: any): Promise<void> {
-    context.log('Timer trigger function started!');
-    context.log('Memory usage before loop:', memoryCheck());
+    context.log('Timer trigger function started. Memory usage:', memoryCheck());
 
     const result = consume5MB();
     context.log(result.length);
 
-    context.log('Timer trigger function completed!');
-    context.log('Memory usage after loop:', memoryCheck());
+    context.log('Timer trigger function completed. Memory usage:', memoryCheck());
 };
 
 function consume5MB(): string {
