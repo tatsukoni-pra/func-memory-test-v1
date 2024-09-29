@@ -4,8 +4,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     context.log('HTTP trigger3 start. Memory usage:', memoryCheck());
 
     var result = [];
-    for (var i = 1; i <= 10; i++) {
-        result.push(consume5MB());
+    for (var i = 1; i <= 10000; i++) {
+        result.push(Math.random().toString());
     }
     result = [];
     context.log(result.length);
@@ -16,17 +16,6 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     };
     context.log('HTTP trigger3 finish. Memory usage:', memoryCheck());
 };
-
-function consume5MB(): string {
-    const targetSize = 1 * 1024 * 1024 / 2; // 1MB in characters
-
-    let largeString = '';
-    for (let i = 0; i < targetSize; i++) {
-        largeString += 'A';
-    }
-
-    return largeString;
-}
 
 function memoryCheck(): string {
     const heap = process.memoryUsage();
