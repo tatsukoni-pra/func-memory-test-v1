@@ -4,7 +4,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     context.log('HTTP trigger3 start. Memory usage:', memoryCheck());
 
     var result = [];
-    for (var i = 1; i <= 10000; i++) {
+    for (var i = 1; i <= 1000000; i++) {
         result.push(Math.random().toString());
     }
     result = [];
