@@ -3,7 +3,10 @@ import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log('HTTP trigger4 start. Memory usage:', memoryCheck());
 
-    const result = consume5MB();
+    var result = [];
+    for (var i = 1; i <= 100000000; i++) {
+        result.push(Math.random().toString());
+    }
     context.log(result.length);
 
     context.res = {
@@ -12,17 +15,6 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     };
     context.log('HTTP trigger4 finish. Memory usage:', memoryCheck());
 };
-
-function consume5MB(): string {
-    const targetSize = 8 * 1024 * 1024 / 2; // 8MB in characters
-
-    let largeString = '';
-    for (let i = 0; i < targetSize; i++) {
-        largeString += 'A';
-    }
-
-    return largeString;
-}
 
 function memoryCheck(): string {
     const heap = process.memoryUsage();
